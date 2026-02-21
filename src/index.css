@@ -1,18 +1,14 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 @theme {
-
   --color-kicks-blue: #4a69e2;
   --color-kicks-dark: #232321;
   --color-kicks-yellow: #ffa52f;
   --color-kicks-gray: #E7E7E3;
 
-
   --font-rubik: "Rubik", sans-serif;
 }
-
-
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 body {
   font-family: var(--font-rubik);
