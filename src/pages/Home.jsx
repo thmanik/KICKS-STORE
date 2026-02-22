@@ -2,6 +2,7 @@ import React from 'react';
 import Hero from '../components/home/Hero';
 import LatestArrivals from '../components/home/LatestArrivals';
 import CategorySection from '../components/home/CategorySection';
+import ReviewSection from '../components/home/ReviewSection';
 
 // import NewDrops from './HomeSections/NewDrops';
 // import CategoriesSection from './HomeSections/CategoriesSection';
@@ -14,6 +15,7 @@ const Home = () => {
       <Hero />
       <LatestArrivals/>
       <CategorySection/>
+      <ReviewSection/>
       
     </div>
   );
