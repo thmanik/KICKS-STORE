@@ -9,9 +9,9 @@ const LatestArrivals = () => {
   ];
 
   return (
-    <section className="max-w-[1200px] mx-auto px-4 pt-4 pb-12 md:pt-5 md:pb-20">
+    <section className="max-w-[1200px] mx-auto px-4 -mt-10 md:-mt-16 pb-12 md:pb-5">
       <div className="flex justify-between items-end mb-8 md:mb-10">
-        <h2 className="text-3xl md:text-7xl font-black leading-[0.9] uppercase">
+        <h2 className="text-4xl md:text-7xl font-black leading-[0.9] uppercase">
           Don't miss out <br /> new drops
         </h2>
         
