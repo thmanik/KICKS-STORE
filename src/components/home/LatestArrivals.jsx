@@ -33,7 +33,7 @@ const LatestArrivals = () => {
   return (
     <section className="max-w-[1200px] mx-auto px-4 -mt-10 md:-mt-16 pb-2 md:pb-5">
       <div className="flex justify-between font-bold items-end mb-8 md:mb-10">
-        <h2 className="text-4xl md:text-6xl  leading-[0.9] uppercase ">
+        <h2 className="text-3xl md:text-5xl  leading-[0.9] uppercase ">
           Don't miss out <br /> new drops
         </h2>
         

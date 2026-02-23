@@ -11,10 +11,14 @@ const RelatedProducts = ({ products, title = "You may also like" }) => {
   const swiperRef = useRef(null);
   const [isBeginning, setIsBeginning] = useState(true);
 
+  if (!products || products.length === 0) {
+    return null;
+  }
+
   return (
-    <div className="max-w-[1200px] mx-auto px-4 pyx-4 md:py-16">
+    <div className="max-w-[1200px] mx-auto px-4 py-4 md:py-16">
       <div className="flex justify-between items-end mb-8">
-        <h2 className="text-3xl md:text-5xl font-black text-kicks-dark uppercase leading-none">
+        <h2 className="text-3xl md:text-5xl font-bold text-kicks-dark uppercase leading-none">
           {title}
         </h2>
         

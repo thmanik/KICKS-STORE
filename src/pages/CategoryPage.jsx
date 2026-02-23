@@ -11,7 +11,7 @@ const CategoryPage = () => {
   const filteredProducts = useMemo(() => {
     if (!products) return [];
     
-    // API data match logic
+    
     return products.filter(product => {
       const productCat = product.category?.name?.toLowerCase() || "";
       const searchCat = categoryName.toLowerCase();
@@ -22,10 +22,10 @@ const CategoryPage = () => {
   if (loading) return <LoadingScreen />;
 
   return (
-    <div className="min-h-screen bg-[#E7E7E3] pt-6 md:pt-24 pb-3 md:pb-20 px-4">
+    <div className="min-h-screen bg-[#E7E7E3] pt-6 md:pt-16 pb-24  px-4">
       <div className="max-w-[1200px] mx-auto">
-        <div className="mb-10">
-          <h1 className="text-4xl md:text-6xl font-black uppercase italic leading-none">
+        <div className="mb-6 md:mb-10">
+          <h1 className="text-3xl md:text-5xl font-bold uppercase  leading-none">
             {categoryName.replace(/-/g, ' ')}
           </h1>
           <p className="text-zinc-500 mt-2 font-medium uppercase tracking-widest text-sm">
