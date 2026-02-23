@@ -4,7 +4,7 @@ import { User, Menu, X } from 'lucide-react';
 import NavLinks from './NavLinks';
 import SearchAction from './SearchAction';
 import CartBadge from './CartBadge';
-import LogoSVG from '/src/assets/logo.svg';
+
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -28,7 +28,7 @@ const Navbar = () => {
 
         <Link to="/" className="flex items-center justify-center">
           <img 
-            src={LogoSVG} 
+            src="/Logo.svg"
             alt="KICKS Logo" 
             className="h-5 md:h-7 w-auto object-contain"
           />
