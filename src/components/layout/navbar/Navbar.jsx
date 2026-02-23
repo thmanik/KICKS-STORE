@@ -39,7 +39,7 @@ const Navbar = () => {
             <SearchAction />
           </div>
           
-          <button className="hover:text-zinc-600 transition-colors">
+          <button className="hover:text-zinc-600 cursor-pointer transition-colors">
             <User size={22} strokeWidth={2.5} />
           </button>
           
