@@ -1,6 +1,22 @@
+import { useContext, useMemo } from 'react';
 import { Facebook, Instagram, Twitter, Music2 } from 'lucide-react';
 
+import { Link } from 'react-router-dom';
+import { ProductContext } from '../../../context/ProductContext';
+
 const FooterBottom = () => {
+  const { products } = useContext(ProductContext);
+
+  const dynamicCategories = useMemo(() => {
+    if (!products || products.length === 0) return ['Sneakers', 'Running', 'Basketball', 'Outdoor'];
+    
+    const categories = products
+      .map(p => p.category?.name)
+      .filter((name, index, self) => name && self.indexOf(name) === index);
+      
+    return categories.slice(0, 6); 
+  }, [products]);
+
   return (
     <div className="w-full bg-kicks-dark rounded-[48px] relative z-[50] -mt-20 md:-mt-24 pt-10 md:pt-16 pb-0 flex flex-col justify-between overflow-hidden min-h-[500px] md:min-h-[400px] shadow-2xl">
       
@@ -16,9 +32,14 @@ const FooterBottom = () => {
         <div className="md:col-span-2 space-y-4">
           <h4 className="text-kicks-yellow font-bold text-2xl tracking-tight">Categories</h4>
           <ul className="text-white/90 space-y-2 text-md font-normal capitalize">
-            {['Runners', 'Sneakers', 'Basketball', 'Outdoor', 'Golf', 'Hiking'].map((item) => (
+            {dynamicCategories.map((item) => (
               <li key={item}>
-                <a href="#" className="hover:text-kicks-blue transition-all">{item}</a>
+                <Link 
+                  to={`/category/${item.toLowerCase()}`} 
+                  className="hover:text-kicks-blue transition-all cursor-pointer"
+                >
+                  {item}
+                </Link>
               </li>
             ))}
           </ul>
@@ -29,7 +50,7 @@ const FooterBottom = () => {
           <ul className="text-white/90 space-y-2 text-md font-normal capitalize">
             {['About', 'Contact', 'Blogs'].map((item) => (
               <li key={item}>
-                <a href="#" className="hover:text-kicks-blue transition-all">{item}</a>
+                <Link to={`/${item.toLowerCase()}`} className="hover:text-kicks-blue transition-all cursor-pointer">{item}</Link>
               </li>
             ))}
           </ul>
