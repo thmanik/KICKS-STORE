@@ -1,48 +1,79 @@
-import { useContext } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { useContext, useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ProductContext } from '../../../context/ProductContext';
 
-
-const NavLinks = () => {
+const NavLinks = ({ mobileMode = false, setMobileMenu }) => {
   const { categories, loading } = useContext(ProductContext);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
-  // Amra Platzi API theke Clothes (ID: 1) ar Shoes (ID: 4) ke filter korlam
-  const headerCategories = categories.filter(cat => [1, 4].includes(cat.id));
 
-  const links = [
-    { name: 'New Drops 🔥', hasDropdown: false },
-    { name: 'Men', hasDropdown: true },
-    { name: 'Women', hasDropdown: true },
-  ];
+  const handleLinkClick = () => {
+    setIsCategoryOpen(false); 
+    if (mobileMode && setMobileMenu) {
+      setMobileMenu(false); 
+    }
+  };
+
+  const toggleCategory = (e) => {
+    if (mobileMode) {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsCategoryOpen(!isCategoryOpen);
+    }
+  };
+
+  const listClasses = mobileMode 
+    ? "flex flex-col gap-4 text-[16px] w-full" 
+    : "flex items-center gap-8 text-[14px]";
 
   return (
-    <ul className="flex items-center gap-8 text-[14px] font-bold tracking-tight text-black">
-      {links.map((link) => (
-        <li key={link.name} className="group relative cursor-pointer flex items-center gap-1 hover:text-zinc-600 transition-colors">
-          {link.name}
-          {link.hasDropdown && <ChevronDown size={14} strokeWidth={3} className="mt-0.5" />}
-          
-          {link.hasDropdown && (
-            <div className="absolute top-full left-0 mt-2 w-48 bg-white shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all border border-zinc-100 p-2 z-50">
-              {loading ? (
-                <p className="p-2 text-[12px] text-zinc-400">Loading...</p>
-              ) : (
-                headerCategories.map((cat) => (
-                  <Link
-                    key={cat.id}
-                    // URL-e amra gender query pathacchi jate pore filter kora jay
-                    to={`/category/${cat.id}?gender=${link.name.toLowerCase()}`}
-                    className="block p-2 text-[12px] hover:bg-zinc-50 rounded-lg transition-colors font-medium capitalize"
-                  >
-                    {cat.name}
-                  </Link>
-                ))
-              )}
-            </div>
-          )}
-        </li>
-      ))}
+    <ul className={`${listClasses} font-bold tracking-tight text-black`}>
+      
+      <li className="cursor-pointer hover:text-zinc-600 transition-colors">
+        <Link to="/" onClick={handleLinkClick} className="block w-full">
+          New Drops 🔥
+        </Link>
+      </li>
+
+  
+      <li 
+        className="group relative flex flex-col md:flex-row md:items-center gap-1"
+        
+        onMouseLeave={() => !mobileMode && setIsCategoryOpen(false)}
+      >
+        <div 
+          className="flex items-center justify-between w-full md:w-auto gap-1 hover:text-zinc-600 transition-colors cursor-pointer"
+          onClick={toggleCategory}
+        >
+          <span className="select-none">Categories</span>
+          <span className="md:mt-0.5">
+            {(mobileMode && isCategoryOpen) ? (
+              <ChevronUp size={16} strokeWidth={3} />
+            ) : (
+              <ChevronDown size={14} strokeWidth={3} />
+            )}
+          </span>
+        </div>
+
+      
+        <div className={`
+          ${mobileMode 
+            ? (isCategoryOpen ? "grid grid-cols-2 gap-2 ml-4 mt-2 border-l-2 border-zinc-100 pl-4" : "hidden") 
+            : "absolute top-full left-0 mt-2 w-64 bg-white shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all border border-zinc-100 p-3 z-50 grid grid-cols-2 gap-1"}
+        `}>
+          {!loading && categories?.slice(0, 10).map((cat) => (
+            <Link
+              key={cat.id}
+              to={`/category/${cat.name.toLowerCase()}`}
+              onClick={handleLinkClick} 
+              className="block p-2 text-[13px] md:text-[12px] hover:bg-zinc-50 rounded-lg transition-colors font-medium capitalize truncate cursor-pointer"
+            >
+              {cat.name}
+            </Link>
+          ))}
+        </div>
+      </li>
     </ul>
   );
 };

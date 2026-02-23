@@ -11,7 +11,7 @@ const ProductInfo = ({ product, selectedSize, setSelectedSize, selectedColor, se
 
   if (!product) return null;
 
-  const isFavorite = wishlist.some(item => item.id === product.id);
+  const isFavorite = wishlist.some((fav) => String(fav.id) === String(product.id));
 
   const handleAddToCart = () => {
     if (!selectedSize || !selectedColor) {
@@ -39,11 +39,11 @@ const ProductInfo = ({ product, selectedSize, setSelectedSize, selectedColor, se
   };
 
   const handleWishlist = () => {
-    toggleWishlist(product);
+    toggleWishlist(product); 
     if (!isFavorite) {
-      toast.success("Added to Wishlist!", { theme: "dark", icon: "❤️" });
+      toast.success("Added to Wishlist! ❤️", { theme: "colored" });
     } else {
-      toast.info("Removed from Wishlist", { theme: "dark" });
+      toast.info("Removed from Wishlist 🤍", { theme: "dark" });
     }
   };
 
@@ -117,7 +117,7 @@ const ProductInfo = ({ product, selectedSize, setSelectedSize, selectedColor, se
           >
             <Heart 
               size={20} 
-              className={isFavorite ? "fill-red-500 stroke-red-500 transition-colors" : "transition-colors"} 
+              className={isFavorite ? "fill-red-500 text-red-500 transition-colors" : "transition-colors"} 
             />
           </Button>
         </div>
@@ -133,7 +133,7 @@ const ProductInfo = ({ product, selectedSize, setSelectedSize, selectedColor, se
 
       <div className="space-y-4 pt-6 border-t border-gray-200">
         <h3 className="font-bold text-sm uppercase text-kicks-dark">About the product</h3>
-        <div className="space-y-2 text-sm  text-kicks-dark/80">
+        <div className="space-y-2 text-sm text-kicks-dark/80">
           <p className="font-black capitalize">{product?.description}</p>
           <p className="leading-relaxed">
             Experience ultimate comfort and style with the {product?.title}. 

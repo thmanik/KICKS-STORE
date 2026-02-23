@@ -7,7 +7,7 @@ import ScrollToTop from '../utils/ScrollToTop';
 
 const MainLayout = () => {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col  min-h-screen">
             <ScrollToTop />
             <Navbar />
             <main className="flex-grow">

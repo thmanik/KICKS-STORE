@@ -12,7 +12,7 @@ const CartItem = ({ item }) => {
     products,
   } = useContext(ProductContext);
 
-  const isFavorite = wishlist.some((fav) => String(fav.cartId) === String(item.cartId));
+  const isFavorite = wishlist.some((fav) => String(fav.id) === String(item.id));
   
   const originalProduct = products.find(
     (p) => String(p.id) === String(item.id)
@@ -22,7 +22,7 @@ const CartItem = ({ item }) => {
   const quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const handleWishlist = () => {
-    toggleWishlist(item); 
+    toggleWishlist(originalProduct || item); 
     if (!isFavorite) {
       toast.success("Added to Wishlist! ❤️", { theme: "colored" });
     } else {
@@ -32,7 +32,6 @@ const CartItem = ({ item }) => {
 
   return (
     <div className="flex flex-row md:flex-row gap-4 md:gap-8 items-start py-6 border-b border-gray-200 last:border-none">
-      
       <div className="w-28 h-28 md:w-36 md:h-36 bg-[#E9EAEC] rounded-xl flex items-center justify-center p-2 md:p-4 flex-shrink-0">
         <img
           src={item.image}
@@ -43,7 +42,6 @@ const CartItem = ({ item }) => {
 
       <div className="flex-1">
         <div className="flex flex-col md:flex-row justify-between items-start gap-2">
-          
           <div className="w-full">
             <h3 className="text-sm md:text-lg font-bold text-kicks-dark uppercase md:normal-case leading-tight">
               {item.name}
@@ -66,12 +64,10 @@ const CartItem = ({ item }) => {
                   <select
                     value={item.selectedSize}
                     onChange={(e) => updateCartItem(item.cartId, e.target.value, item.selectedColor, item.quantity)}
-                    /* 🔥 text-center added here */
                     className="appearance-none bg-transparent font-bold pr-4 outline-none cursor-pointer text-kicks-dark text-center"
                   >
                     {availableSizes.map((s) => (
-                      /* 🔥 text-center added to option */
-                      <option key={s} value={s} className="text-center">{s}</option>
+                      <option key={s} value={s}>{s}</option>
                     ))}
                   </select>
                   <ChevronDown size={12} className="absolute right-0 pointer-events-none text-gray-500" />
@@ -84,12 +80,10 @@ const CartItem = ({ item }) => {
                   <select
                     value={item.quantity}
                     onChange={(e) => updateCartItem(item.cartId, item.selectedSize, item.selectedColor, parseInt(e.target.value))}
-                    /* 🔥 text-center added here */
                     className="appearance-none bg-transparent font-bold pr-4 outline-none cursor-pointer text-kicks-dark text-center"
                   >
                     {quantities.map((q) => (
-                      /* 🔥 text-center added to option */
-                      <option key={q} value={q} className="text-center">{q}</option>
+                      <option key={q} value={q}>{q}</option>
                     ))}
                   </select>
                   <ChevronDown size={12} className="absolute right-0 pointer-events-none text-gray-500" />
@@ -110,7 +104,6 @@ const CartItem = ({ item }) => {
           <p className="hidden md:block text-xl font-bold text-[#4A69E2]">
             ${item.price.toFixed(2)}
           </p>
-
         </div>
       </div>
     </div>

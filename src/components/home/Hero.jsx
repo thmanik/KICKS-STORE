@@ -76,7 +76,7 @@ const Hero = () => {
           <div className="relative w-full flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             
             <div className="w-full md:max-w-xl text-left order-2 md:order-1">
-              <h2 className="text-white text-3xl md:text-4xl lg:text-6xl font-black italic mb-2 md:mb-3 uppercase leading-[0.9] tracking-tight drop-shadow-2xl">
+              <h2 className="text-white font-bold text-3xl md:text-4xl lg:text-6xl   mb-2 md:mb-3 uppercase leading-[0.9] tracking-tight drop-shadow-2xl">
                 {featuredProduct.title}
               </h2>
               <p className="text-zinc-100 mb-6 md:mb-8 text-xs md:text-lg font-medium opacity-100 max-w-[280px] md:max-w-sm drop-shadow-md">
@@ -85,7 +85,7 @@ const Hero = () => {
               
               <Link to={productUrl}>
                 <button className="bg-kicks-blue hover:bg-blue-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold uppercase text-[12px] md:text-sm tracking-widest transition-all active:scale-95 shadow-lg cursor-pointer">
-                  Shop Now - ${featuredProduct.price}
+                  Shop Now
                 </button>
               </Link>
             </div>

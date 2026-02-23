@@ -50,7 +50,7 @@ const CategorySection = () => {
       <div className="max-w-[1200px] mx-auto bg-[#232321] p-4 md:p-0 md:pt-14 overflow-hidden">
         
         <div className="flex justify-between items-center mb-6 md:mb-12 px-2 md:px-14">
-          <h2 className="text-white text-4xl md:text-6xl font-black uppercase tracking-tight">
+          <h2 className="text-white text-4xl md:text-6xl font-bold uppercase tracking-tight">
             Categories
           </h2>
           <div className="flex gap-2">

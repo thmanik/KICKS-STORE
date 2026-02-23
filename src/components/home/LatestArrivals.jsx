@@ -19,19 +19,26 @@ const LatestArrivals = () => {
     return [...baseData].reverse().slice(0, 4);
   }, [products]);
 
+  const shopUrl = useMemo(() => {
+    if (latestDrops.length > 0 && latestDrops[0].category?.name) {
+      return `/category/${latestDrops[0].category.name.toLowerCase()}`;
+    }
+    return "/shop";
+  }, [latestDrops]);
+
   if (loading) {
     return <LoadingScreen message="Syncing New Drops..." />;
   }
 
   return (
     <section className="max-w-[1200px] mx-auto px-4 -mt-10 md:-mt-16 pb-2 md:pb-5">
-      <div className="flex justify-between items-end mb-8 md:mb-10">
-        <h2 className="text-4xl md:text-6xl font-black leading-[0.9] uppercase italic">
+      <div className="flex justify-between font-bold items-end mb-8 md:mb-10">
+        <h2 className="text-4xl md:text-6xl  leading-[0.9] uppercase ">
           Don't miss out <br /> new drops
         </h2>
         
-        <Link to="/shop" className="hidden md:block">
-          <Button variant="primary" className="px-8 tracking-widest">
+        <Link to={shopUrl} className="hidden md:block">
+          <Button variant="primary" className="px-8 tracking-widest cursor-pointer">
             Shop New Drops
           </Button>
         </Link>
@@ -47,8 +54,8 @@ const LatestArrivals = () => {
       </div>
 
       <div className="mt-8 md:hidden">
-        <Link to="/shop">
-          <Button variant="primary" className="w-full tracking-widest">
+        <Link to={shopUrl}>
+          <Button variant="primary" className="w-full tracking-widest cursor-pointer">
             Shop New Drops
           </Button>
         </Link>

@@ -22,7 +22,7 @@ const CategoryPage = () => {
   if (loading) return <LoadingScreen />;
 
   return (
-    <div className="min-h-screen bg-[#F6F6F6] pt-24 pb-20 px-4">
+    <div className="min-h-screen bg-[#E7E7E3] pt-6 md:pt-24 pb-3 md:pb-20 px-4">
       <div className="max-w-[1200px] mx-auto">
         <div className="mb-10">
           <h1 className="text-4xl md:text-6xl font-black uppercase italic leading-none">

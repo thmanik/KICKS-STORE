@@ -8,7 +8,6 @@ const ProductMainInfo = ({ productId }) => {
   const { products, loading } = useContext(ProductContext);
   const [activeThumb, setActiveThumb] = useState(0);
 
-  // Dynamic Product selection from Context
   const product = useMemo(() => {
     return products.find(p => p.id === parseInt(productId));
   }, [products, productId]);
