@@ -1,36 +1,26 @@
-import { useState, useRef } from 'react';
+import { useState, useContext, useMemo } from 'react';
+import { ProductContext } from '../../context/ProductContext';
 import ProductGallery from './ProductGallery';
 import ProductInfo from './ProductInfo';
+import LoadingScreen from '../loading/LoadingScreen';
 
 const ProductMainInfo = ({ productId }) => {
+  const { products, loading } = useContext(ProductContext);
   const [activeThumb, setActiveThumb] = useState(0);
-  const swiperRef = useRef(null);
 
-  const product = {
-    name: "ADIDAS 4DFWD X PARLEY RUNNING SHOES",
-    price: 125.00,
-    tag: "New Release",
-    colors: ["#2B3444", "#7E8A7B"],
-    sizes: [38, 39, 40, 41, 42, 43, 44, 45, 46, 47],
-    description: "Shadow Navy / Army Green",
-    detailedDescription: "This product is excluded from all promotional discounts and offers.",
-    images: [
-      "/src/assets/shoe-1.png", 
-      "/src/assets/shoe-2.png",
-      "/src/assets/shoe-3.png",
-      "/src/assets/shoe-4.png"
-    ]
-  };
+  const product = useMemo(() => {
+    return products.find(p => p.id === parseInt(productId));
+  }, [products, productId]);
 
   const [selectedSize, setSelectedSize] = useState(38);
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+  const [selectedColor, setSelectedColor] = useState(null);
 
-  const handleThumbClick = (index) => {
-    setActiveThumb(index);
-    if (swiperRef.current && swiperRef.current.swiper) {
-      swiperRef.current.swiper.slideTo(index);
-    }
-  };
+  if (loading) return <LoadingScreen />;
+  if (!product) return <div className="py-20 text-center font-black uppercase">Product Not Found</div>;
+
+  // Mock data for UI elements not in API
+  const mockColors = ["#2B3444", "#7E8A7B", "#333333"];
+  const mockSizes = [38, 39, 40, 41, 42, 43, 44, 45, 46, 47];
 
   const getRoundingClass = (index) => {
     switch (index) {
@@ -46,18 +36,25 @@ const ProductMainInfo = ({ productId }) => {
     <section className="max-w-[1320px] mx-auto px-0 md:px-6 py-0 md:py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
       <ProductGallery 
         images={product.images}
-        swiperRef={swiperRef}
         activeThumb={activeThumb}
-        handleThumbClick={handleThumbClick}
+        setActiveThumb={setActiveThumb}
         getRoundingClass={getRoundingClass}
-        onSlideChange={(swiper) => setActiveThumb(swiper.activeIndex)}
       />
 
       <ProductInfo 
-        product={product}
+        product={{
+          ...product,
+          name: product.title,
+          price: product.price,
+          tag: product.category.name,
+          colors: mockColors,
+          sizes: mockSizes,
+          description: "Premium " + product.category.name,
+          detailedDescription: product.description
+        }}
         selectedSize={selectedSize}
         setSelectedSize={setSelectedSize}
-        selectedColor={selectedColor}
+        selectedColor={selectedColor || mockColors[0]}
         setSelectedColor={setSelectedColor}
       />
     </section>
