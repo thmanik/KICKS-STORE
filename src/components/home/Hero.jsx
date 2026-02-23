@@ -76,7 +76,7 @@ const Hero = () => {
           <div className="relative w-full flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             
             <div className="w-full md:max-w-xl text-left order-2 md:order-1">
-              <h2 className="text-white font-bold text-3xl md:text-4xl lg:text-6xl   mb-2 md:mb-3 uppercase leading-[0.9] tracking-tight drop-shadow-2xl">
+              <h2 className="text-white font-bold text-3xl md:text-5xl  mb-2 md:mb-3 uppercase leading-[0.9] tracking-tight drop-shadow-2xl">
                 {featuredProduct.title}
               </h2>
               <p className="text-zinc-100 mb-6 md:mb-8 text-xs md:text-lg font-medium opacity-100 max-w-[280px] md:max-w-sm drop-shadow-md">

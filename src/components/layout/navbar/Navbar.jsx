@@ -4,7 +4,7 @@ import { User, Menu, X } from 'lucide-react';
 import NavLinks from './NavLinks';
 import SearchAction from './SearchAction';
 import CartBadge from './CartBadge';
-import LogoSVG from '../../../assets/logo.svg';
+import LogoSVG from '/src/assets/logo.svg';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

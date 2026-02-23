@@ -11,7 +11,7 @@ const CategoryPage = () => {
   const filteredProducts = useMemo(() => {
     if (!products) return [];
     
-    // API data match logic
+    
     return products.filter(product => {
       const productCat = product.category?.name?.toLowerCase() || "";
       const searchCat = categoryName.toLowerCase();
