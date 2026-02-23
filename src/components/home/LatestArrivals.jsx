@@ -5,21 +5,12 @@ import { Link } from 'react-router-dom';
 import LoadingScreen from '../loading/LoadingScreen';
 import Button from '../ui/Button';
 
-
-
 const LatestArrivals = () => {
   const { products, loading } = useContext(ProductContext);
 
-  const createSlug = (title) => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
-  };
-
   const latestDrops = useMemo(() => {
     return products
-      .filter(item => item.category.id === 4)
+      .filter(item => item.category?.id === 4)
       .slice(0, 4);
   }, [products]);
 
@@ -43,20 +34,11 @@ const LatestArrivals = () => {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
         {latestDrops.map((product) => (
-          <Link 
+          /* 🔥 Bairer Link remove kora hoyeche jate Card-er bhetorer logic conflict na kore, kintu design same thakbe */
+          <ProductCardPrimary 
             key={product.id} 
-            to={`/product/${product.id}/${createSlug(product.title)}`} 
-            className="block group"
-          >
-            <ProductCardPrimary 
-              product={{
-                id: product.id,
-                name: product.title,
-                price: `$${product.price}`,
-                image: product.image || product.images[0] 
-              }} 
-            />
-          </Link>
+            product={product} 
+          />
         ))}
       </div>
 
