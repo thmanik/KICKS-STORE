@@ -97,7 +97,7 @@ const SearchAction = () => {
             setIsOpen(true);
           }
         }}
-        className={`absolute right-0 hover:text-zinc-600 transition-colors ${isOpen ? 'mr-2 text-zinc-400' : 'text-black'}`}
+        className={`absolute right-0 cursor-pointer hover:text-zinc-600 transition-colors ${isOpen ? 'mr-2 text-zinc-400' : 'text-black'}`}
       >
         {isOpen ? <X size={18} /> : <Search size={22} strokeWidth={2.5} />}
       </button>
