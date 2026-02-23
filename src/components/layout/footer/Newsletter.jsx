@@ -26,7 +26,7 @@ const Newsletter = () => {
       <div className="mt-8 md:mt-0 md:absolute md:right-32"> 
         <div className="relative scale-90 md:scale-100 origin-left md:origin-center">
           <img 
-            src="/src/assets/LogoWhite.svg" 
+            src="/LogoWhite.svg" 
             alt="Kicks" 
             className="w-48 md:w-56 xl:w-72 h-auto" 
           />
