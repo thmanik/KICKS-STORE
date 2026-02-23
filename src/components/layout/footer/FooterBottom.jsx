@@ -69,7 +69,7 @@ const FooterBottom = () => {
 
       <div className="w-full flex justify-center items-end mt-12 px-4">
          <img 
-            src="/src/assets/LogoWhite.svg" 
+            src="/LogoWhite.svg" 
             alt="Kicks Logo" 
             className="w-full max-w-[95%] md:max-w-[1150px] h-auto object-contain select-none opacity-100"
             style={{ marginBottom: '-4%' }} 
