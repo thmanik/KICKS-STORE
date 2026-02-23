@@ -4,8 +4,10 @@ import CartItem from "../components/cart/CartItem";
 import OrderSummary from "../components/cart/OrderSummary";
 import RelatedProducts from "../components/shared/RelatedProducts";
 import { Link } from "react-router-dom";
+import useTitle from "../hooks/useTitle";
 
 const CartPage = () => {
+     useTitle(`Cart`);
     const { cart, products } = useContext(ProductContext);
     const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 

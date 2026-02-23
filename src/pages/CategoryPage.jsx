@@ -3,9 +3,11 @@ import { useParams } from 'react-router-dom';
 import { ProductContext } from '../context/ProductContext';
 import ProductCardPrimary from '../components/shared/ProductCardPrimary';
 import LoadingScreen from '../components/loading/LoadingScreen';
+import useTitle from '../hooks/useTitle';
 
 const CategoryPage = () => {
   const { categoryName } = useParams();
+  useTitle(`Category-${categoryName}`);
   const { products, loading } = useContext(ProductContext);
 
   const filteredProducts = useMemo(() => {

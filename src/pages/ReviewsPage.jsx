@@ -1,8 +1,9 @@
 import ReviewCard from '../components/shared/ReviewCard';
-import { useReviews } from '../hooks/useReviews'; // Hook-ta import koro
+import { useReviews } from '../hooks/useReviews'; 
+import useTitle from '../hooks/useTitle';
 
 const ReviewsPage = () => {
-  // Hook theke 9 ta dynamic review niye asha hochche
+  useTitle(`Reviews`);
   const allReviews = useReviews(9);
 
   return (

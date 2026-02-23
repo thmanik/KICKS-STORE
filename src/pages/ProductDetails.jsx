@@ -3,15 +3,16 @@ import { useContext, useMemo } from 'react';
 import { ProductContext } from '../context/ProductContext';
 import RelatedProducts from '../components/shared/RelatedProducts';
 import ProductMainInfo from '../components/product/ProductMainInfo';
+import useTitle from '../hooks/useTitle';
 
 const ProductDetailsPage = () => {
+ 
   const { id } = useParams();
   const { products } = useContext(ProductContext);
-
   const currentProduct = useMemo(() => {
     return products.find(p => p.id === parseInt(id));
   }, [products, id]);
-
+  useTitle(`Details-${currentProduct?.title || ''}`);
   const relatedItems = useMemo(() => {
     if (!currentProduct) return [];
     return products
