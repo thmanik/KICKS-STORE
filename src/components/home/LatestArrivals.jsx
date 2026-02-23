@@ -9,9 +9,14 @@ const LatestArrivals = () => {
   const { products, loading } = useContext(ProductContext);
 
   const latestDrops = useMemo(() => {
-    return products
-      .filter(item => item.category?.id === 4)
-      .slice(0, 4);
+    if (!products || products.length === 0) return [];
+    const shoeProducts = products.filter(
+      item => item.category?.name?.toLowerCase() === 'shoes'
+    );
+
+    const baseData = shoeProducts.length > 0 ? shoeProducts : products;
+  
+    return [...baseData].reverse().slice(0, 4);
   }, [products]);
 
   if (loading) {
@@ -34,7 +39,6 @@ const LatestArrivals = () => {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
         {latestDrops.map((product) => (
-          /* 🔥 Bairer Link remove kora hoyeche jate Card-er bhetorer logic conflict na kore, kintu design same thakbe */
           <ProductCardPrimary 
             key={product.id} 
             product={product} 

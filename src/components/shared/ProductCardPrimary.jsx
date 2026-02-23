@@ -4,6 +4,7 @@ const ProductCardPrimary = ({ product }) => {
   const displayTitle = product.title || product.name;
   const displayImage = product.images?.[0] || product.image;
 
+  
   const slug = (displayTitle || "")
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
@@ -21,7 +22,7 @@ const ProductCardPrimary = ({ product }) => {
         <img 
           src={displayImage} 
           alt={displayTitle} 
-          className="w-full h-full object-contain transition-all duration-500 ease-in-out transform scale-100 rotate-0 group-hover:scale-90 group-hover:-rotate-[15deg]" 
+          className="w-full h-full object-cover transition-all duration-500 ease-in-out transform scale-100 rotate-0 group-hover:scale-90 group-hover:-rotate-[15deg]" 
         />
       </Link>
 

@@ -3,6 +3,8 @@ import RootLayout from '../layouts/RootLayout';
 import Home from '../pages/Home';
 import ProductDetailsPage from '../pages/ProductDetails';
 import CartPage from '../pages/CartPage';
+import CategoryPage from '../pages/CategoryPage';
+import ReviewsPage from '../pages/ReviewsPage';
 // import ProductDetails from '../pages/ProductDetails';
 
 export const router = createBrowserRouter([
@@ -21,6 +23,14 @@ export const router = createBrowserRouter([
       {
         path: '/cart',
         element: <CartPage />,
+      },
+      {
+        path:'/category/:categoryName',
+        element: <CategoryPage />,
+      },
+      {
+        path:'/reviews',
+        element: <ReviewsPage />,
       },
     ],
   },

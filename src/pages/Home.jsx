@@ -4,10 +4,6 @@ import LatestArrivals from '../components/home/LatestArrivals';
 import CategorySection from '../components/home/CategorySection';
 import ReviewSection from '../components/home/ReviewSection';
 
-// import NewDrops from './HomeSections/NewDrops';
-// import CategoriesSection from './HomeSections/CategoriesSection';
-// import ReviewsSection from './HomeSections/ReviewsSection';
-
 const Home = () => {
   return (
     <div className="flex flex-col gap-y-16 md:gap-y-24 mb-20 overflow-x-hidden">

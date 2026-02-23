@@ -1,31 +1,49 @@
-import { useRef } from 'react';
+import { useRef, useContext, useMemo } from 'react';
 import CategoryCard from '../shared/CategoryCard';
-
+import { ProductContext } from '../../context/ProductContext';
 
 const CategorySection = () => {
   const scrollRef = useRef(null);
+  const { products } = useContext(ProductContext);
 
-  const categories = [
-    { id: 1, title: 'LIFESTYLE SHOES', image: '/src/assets/lifestyle.png', bgColor: 'bg-[#ECEEF0]' },
-    { id: 2, title: 'BASKETBALL SHOES', image: '/src/assets/basketball.png', bgColor: 'bg-[#F6F6F6]' },
-    { id: 3, title: 'RUNNING SHOES', image: '/src/assets/lifestyle.png', bgColor: 'bg-[#ECEEF0]' },
-    { id: 4, title: 'CASUAL SHOES', image: '/src/assets/basketball.png', bgColor: 'bg-[#F6F6F6]' },
-  ];
+  const categories = useMemo(() => {
+    if (!products || products.length === 0) return [];
+
+    const uniqueCategories = [];
+    const map = new Map();
+
+    for (const product of products) {
+      if (product.category && !map.has(product.category.id)) {
+        map.set(product.category.id, true);
+        
+        const index = uniqueCategories.length;
+        uniqueCategories.push({
+          id: product.category.id,
+          title: product.category.name.toUpperCase() + ' SHOES', 
+          image: product.category.image, 
+          bgColor: index % 2 === 0 ? 'bg-[#ECEEF0]' : 'bg-[#F6F6F6]'
+        });
+      }
+      if (uniqueCategories.length >= 4) break; 
+    }
+    return uniqueCategories;
+  }, [products]);
 
   const handleScroll = (direction) => {
     if (scrollRef.current) {
-      const isMobile = window.innerWidth < 768;
-      if (isMobile) {
-        // Vertical slide for mobile (2 cards)
-        const scrollAmount = direction === 'left' ? -640 : 640;
-        scrollRef.current.scrollBy({ top: scrollAmount, behavior: 'smooth' });
-      } else {
-        // Horizontal slide for desktop (container width)
-        const scrollAmount = direction === 'left' ? -scrollRef.current.offsetWidth : scrollRef.current.offsetWidth;
-        scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      const cardElement = scrollRef.current.querySelector('div');
+      if (cardElement) {
+        const scrollAmount = cardElement.offsetWidth;
+        if (direction === 'left') {
+          scrollRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+          scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
       }
     }
   };
+
+  if (categories.length === 0) return null;
 
   return (
     <section className=" py-1 md:py-5">
@@ -37,14 +55,16 @@ const CategorySection = () => {
           </h2>
           <div className="flex gap-2">
             <button 
+              disabled={categories.length <= 2}
               onClick={() => handleScroll('left')} 
-              className="bg-[#3b3b38] p-2 rounded-lg text-white hover:bg-white hover:text-black transition-all active:scale-90"
+              className="bg-[#3b3b38] p-2 rounded-lg text-white hover:bg-white hover:text-black transition-all active:scale-90 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-[#3b3b38] disabled:hover:text-white"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
             <button 
+              disabled={categories.length <= 2}
               onClick={() => handleScroll('right')} 
-              className="bg-[#FAFAFA] p-2 rounded-lg text-black hover:bg-kicks-blue hover:text-white transition-all active:scale-90"
+              className="bg-[#FAFAFA] p-2 rounded-lg text-black hover:bg-kicks-blue hover:text-white transition-all active:scale-90 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-[#FAFAFA] disabled:hover:text-black"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M9 18l6-6-6-6"/></svg>
             </button>
