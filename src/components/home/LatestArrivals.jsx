@@ -1,35 +1,71 @@
+import { useContext, useMemo } from 'react';
+import { ProductContext } from '../../context/ProductContext';
 import ProductCardPrimary from '../shared/ProductCardPrimary';
+import { Link } from 'react-router-dom';
+import LoadingScreen from '../loading/LoadingScreen';
+import Button from '../ui/Button';
+
+
 
 const LatestArrivals = () => {
-  const products = [
-    { id: 1, name: 'ADIDAS 4DFWD X PARLEY RUNNING SHOES', price: '$125', image: '/src/assets/product1.png' },
-    { id: 2, name: 'ADIDAS 4DFWD X PARLEY RUNNING SHOES', price: '$125', image: '/src/assets/product2.png' },
-    { id: 3, name: 'ADIDAS 4DFWD X PARLEY RUNNING SHOES', price: '$125', image: '/src/assets/product3.png' },
-    { id: 4, name: 'ADIDAS 4DFWD X PARLEY RUNNING SHOES', price: '$125', image: '/src/assets/product4.png' },
-  ];
+  const { products, loading } = useContext(ProductContext);
+
+  const createSlug = (title) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+  };
+
+  const latestDrops = useMemo(() => {
+    return products
+      .filter(item => item.category.id === 4)
+      .slice(0, 4);
+  }, [products]);
+
+  if (loading) {
+    return <LoadingScreen message="Syncing New Drops..." />;
+  }
 
   return (
     <section className="max-w-[1200px] mx-auto px-4 -mt-10 md:-mt-16 pb-2 md:pb-5">
       <div className="flex justify-between items-end mb-8 md:mb-10">
-        <h2 className="text-4xl md:text-6xl font-black leading-[0.9] uppercase">
+        <h2 className="text-4xl md:text-6xl font-black leading-[0.9] uppercase italic">
           Don't miss out <br /> new drops
         </h2>
         
-        <button className="hidden md:block bg-kicks-blue hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold uppercase text-sm tracking-widest transition-all cursor-pointer">
-          Shop New Drops
-        </button>
+        <Link to="/shop" className="hidden md:block">
+          <Button variant="primary" className="px-8 tracking-widest">
+            Shop New Drops
+          </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
-        {products.slice(0, 4).map((product) => (
-          <ProductCardPrimary key={product.id} product={product} />
+        {latestDrops.map((product) => (
+          <Link 
+            key={product.id} 
+            to={`/product/${product.id}/${createSlug(product.title)}`} 
+            className="block group"
+          >
+            <ProductCardPrimary 
+              product={{
+                id: product.id,
+                name: product.title,
+                price: `$${product.price}`,
+                image: product.image || product.images[0] 
+              }} 
+            />
+          </Link>
         ))}
       </div>
 
       <div className="mt-8 md:hidden">
-        <button className="w-full bg-kicks-blue text-white py-4 rounded-xl font-bold uppercase text-sm tracking-widest cursor-pointer">
-          Shop New Drops
-        </button>
+        <Link to="/shop">
+          <Button variant="primary" className="w-full tracking-widest">
+            Shop New Drops
+          </Button>
+        </Link>
       </div>
     </section>
   );

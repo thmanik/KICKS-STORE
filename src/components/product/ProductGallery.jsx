@@ -1,33 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-const ProductGallery = ({ images, getRoundingClass }) => {
-  const [activeThumb, setActiveThumb] = useState(0);
+const ProductGallery = ({ images = [], getRoundingClass, activeThumb, setActiveThumb }) => {
 
-  // Auto-slide logic for Mobile (Every 3 seconds)
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveThumb((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [images.length]);
+    if (images?.length > 0) {
+      const interval = setInterval(() => {
+        setActiveThumb((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [images?.length, setActiveThumb]);
+
+  const displayImages = images?.length > 0 ? [...images] : [];
+  while (displayImages.length > 0 && displayImages.length < 4) {
+    displayImages.push(images[0]); 
+  }
 
   return (
     <div className="lg:col-span-7 w-full">
-      
-      {/* MOBILE VIEW: Single Featured Image + Thumbnails */}
+      {/* MOBILE VIEW */}
       <div className="block lg:hidden">
-        {/* Main Featured Image */}
         <div className="bg-[#ECEEF0] aspect-square flex items-center justify-center overflow-hidden rounded-b-[32px] transition-all duration-500">
           <img 
-            src={images[activeThumb]} 
+            src={images?.[activeThumb] || images?.[0]} 
             alt="Product" 
-            className="w-full h-full object-contain p-6 transition-opacity duration-500" 
+            className="w-full h-full object-contain p-6" 
           />
         </div>
         
-        {/* Clickable Thumbnails */}
         <div className="flex gap-3 px-4 mt-4 overflow-x-auto no-scrollbar">
-          {images.map((img, index) => (
+          {images?.map((img, index) => (
             <button 
               key={index} 
               onClick={() => setActiveThumb(index)}
@@ -41,22 +43,22 @@ const ProductGallery = ({ images, getRoundingClass }) => {
         </div>
       </div>
 
-      {/* DESKTOP VIEW: Unified Grid (Hidden on Mobile) */}
+      {/* DESKTOP VIEW: Unified Grid with 4 boxes */}
       <div className="hidden lg:grid grid-cols-2 gap-2 leading-[0]">
-        {images.map((img, index) => (
+        {displayImages.slice(0, 4).map((img, index) => (
           <div 
             key={index} 
             className={`bg-[#ECEEF0] aspect-square flex items-center justify-center overflow-hidden ${getRoundingClass(index)}`}
           >
             <img 
               src={img} 
-              alt="Product" 
+              alt={`Product ${index}`} 
               className="w-full h-full object-cover hover:scale-105 transition-all duration-500" 
+              onError={(e) => { e.target.src = '/placeholder-shoe.png'; }} // Fallback for broken links
             />
           </div>
         ))}
       </div>
-
     </div>
   );
 };
